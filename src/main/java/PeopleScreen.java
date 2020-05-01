@@ -26,7 +26,6 @@ public class PeopleScreen extends JPanel {
 		cusLM = new DefaultListModel();
         //construct components
         
-        
         jcomp1 = new JLabel ("Employees");
         jcomp2 = new JLabel ("Customers");
         empList = new JList (empLM);
@@ -34,7 +33,6 @@ public class PeopleScreen extends JPanel {
         
         addPerson = new JButton("Add Person");
         addPerson.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
             	JFrame frame = new JFrame ("AddPersonScreen");
                 frame.getContentPane().add (new AddPersonScreen(frame));
@@ -45,7 +43,6 @@ public class PeopleScreen extends JPanel {
         
         refresh = new JButton("Refresh");
         refresh.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
             	populateListsFromDB();
             }
@@ -53,14 +50,12 @@ public class PeopleScreen extends JPanel {
         
         back = new JButton("Back");
         back.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
             	frame.dispose();
             	JFrame frame = new JFrame ("MainScreen");
                 frame.getContentPane().add (new MainScreen());
                 frame.pack();
                 frame.setVisible (true);
-            
             }
         });
 
@@ -93,8 +88,6 @@ public class PeopleScreen extends JPanel {
         addPerson.setBounds (100, 15, 200, 25);
         refresh.setBounds(400, 15, 200, 25);
         back.setBounds(700,15,200,25);
-
-        
     }
     
     private void populateListsFromDB()	{

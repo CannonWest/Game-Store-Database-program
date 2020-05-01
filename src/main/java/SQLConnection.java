@@ -50,7 +50,6 @@ public class SQLConnection {
 		}
 		return outp;
 	}
-
 	public static ArrayList<String> selectEmployees()	{
 		ArrayList<String> outp = new ArrayList<String>();
 		try {
@@ -72,7 +71,6 @@ public class SQLConnection {
 		
 		return outp;
 	}
-	
 	public static ArrayList<String> selectCustomers()	{
 		ArrayList<String> outp = new ArrayList<String>();
 		try {
@@ -94,7 +92,6 @@ public class SQLConnection {
 		
 		return outp;
 	}
-	
 	public static void insertEmployee(ArrayList<String> inp)	{
 		try {
 			String query1 = "INSERT INTO People (person_id, name, phone, email) VALUES (\"" + inp.get(0) + "\",\"" + inp.get(1) + "\",\"" + inp.get(2) + "\",\"" + inp.get(3)+"\")";

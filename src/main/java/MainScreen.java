@@ -7,34 +7,33 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 public class MainScreen extends JPanel {
-    private JButton jcomp1;
-    private JButton jcomp2;
-    private JButton jcomp3;
+    private JButton peopleBut;
+    private JButton inventBut;
+    private JButton transBut;
     
     private static JFrame frame;
 
     public MainScreen() {
         //construct components
-        jcomp1 = new JButton ("People");
-        jcomp2 = new JButton ("Inventory");
-        jcomp3 = new JButton ("Transactions");
+        peopleBut = new JButton ("People");
+        inventBut = new JButton ("Inventory");
+        transBut = new JButton ("Transactions");
 
         //adjust size and set layout
         setPreferredSize (new Dimension (944, 563));
         setLayout (null);
 
         //add components
-        add (jcomp1);
-        add (jcomp2);
-        add (jcomp3);
+        add (peopleBut);
+        add (inventBut);
+        add (transBut);
 
         //set component bounds (only needed by Absolute Positioning)
-        jcomp1.setBounds (20, 20, 100, 20);
-        jcomp2.setBounds (155, 20, 100, 20);
-        jcomp3.setBounds (295, 20, 140, 25);
+        peopleBut.setBounds (20, 20, 100, 20);
+        inventBut.setBounds (155, 20, 100, 20);
+        transBut.setBounds (295, 20, 140, 25);
         
-        jcomp1.addActionListener(new ActionListener() {
-
+        peopleBut.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	frame.dispose();
             	JFrame frame = new JFrame ("PeopleScreen");
@@ -43,6 +42,8 @@ public class MainScreen extends JPanel {
                 frame.setVisible (true);
             }
         });
+        
+        
     }
 
     public static void main (String[] args) {
