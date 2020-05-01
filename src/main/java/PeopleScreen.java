@@ -13,11 +13,15 @@ public class PeopleScreen extends JPanel {
     private JList cusList;
     private JButton addPerson;
     private JButton refresh; 
+    private JButton back;
     private DefaultListModel empLM;
     private DefaultListModel cusLM;
 
+    private JFrame frame;
 
-    public PeopleScreen() {
+    public PeopleScreen(JFrame frameM) {
+    	frame = frameM;
+    	
 		empLM = new DefaultListModel();	
 		cusLM = new DefaultListModel();
         //construct components
@@ -33,7 +37,7 @@ public class PeopleScreen extends JPanel {
 
             public void actionPerformed(ActionEvent e) {
             	JFrame frame = new JFrame ("AddPersonScreen");
-                frame.getContentPane().add (new AddPersonScreen());
+                frame.getContentPane().add (new AddPersonScreen(frame));
                 frame.pack();
                 frame.setVisible (true);
             }
@@ -47,6 +51,18 @@ public class PeopleScreen extends JPanel {
             }
         });
         
+        back = new JButton("Back");
+        back.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+            	frame.dispose();
+            	JFrame frame = new JFrame ("MainScreen");
+                frame.getContentPane().add (new MainScreen());
+                frame.pack();
+                frame.setVisible (true);
+            
+            }
+        });
 
         //adjust size and set layout
         setPreferredSize (new Dimension (944, 563));
@@ -67,6 +83,7 @@ public class PeopleScreen extends JPanel {
         add (cusScrollPane);
         add (addPerson);
         add (refresh);
+        add (back);
 
         //set component bounds (only needed by Absolute Positioning)
         jcomp1.setBounds (25, 15, 100, 25);
@@ -75,6 +92,7 @@ public class PeopleScreen extends JPanel {
         cusScrollPane.setBounds (25, 350, 800, 150);
         addPerson.setBounds (100, 15, 200, 25);
         refresh.setBounds(400, 15, 200, 25);
+        back.setBounds(700,15,200,25);
 
         
     }
@@ -100,7 +118,7 @@ public class PeopleScreen extends JPanel {
     public static void main (String[] args) {
         JFrame frame = new JFrame ("PeopleScreen");
         frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add (new PeopleScreen());
+        frame.getContentPane().add (new PeopleScreen(frame));
         frame.pack();
         frame.setVisible (true);
     }

@@ -27,8 +27,9 @@ public class AddPersonScreen extends JPanel {
     
     private static JFrame frame;
 
-    public AddPersonScreen() {
-        //construct components
+    public AddPersonScreen(JFrame frameM) {
+        this.frame = frameM;
+    	//construct components
         empBut = new JRadioButton ("Employee");
         cusBut = new JRadioButton ("Customer");
         jcomp3 = new JLabel ("ID");
@@ -160,7 +161,7 @@ public class AddPersonScreen extends JPanel {
 	public static void main (String[] args) {
         frame = new JFrame ("AddPersonScreen");
         frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add (new AddPersonScreen());
+        frame.getContentPane().add (new AddPersonScreen(frame));
         frame.pack();
         frame.setVisible (true);
     }
