@@ -15,30 +15,29 @@ public class AddPersonScreen extends JPanel {
     private JLabel jcomp3;
     private JLabel jcomp4;
     private JLabel jcomp5;
-    private JTextField jcomp6;
-    private JTextField jcomp7;
-    private JTextField jcomp8;
-    private JTextField jcomp9;
+    private JTextField jcompEmail;
+    private JTextField jcompID;
+    private JTextField jcompName;
+    private JTextField jcompPhone;
     private JLabel jcomp10;
     private JTextField jcomp11;
     private JLabel jcomp12;
     
     private JButton addPerson;
     
-    private DefaultListModel empLM;
-    private DefaultListModel cusLM;
+    private static JFrame frame;
 
-    public AddPersonScreen(DefaultListModel empLM, DefaultListModel cusLM) {
+    public AddPersonScreen() {
         //construct components
         empBut = new JRadioButton ("Employee");
         cusBut = new JRadioButton ("Customer");
         jcomp3 = new JLabel ("ID");
         jcomp4 = new JLabel ("Name");
         jcomp5 = new JLabel ("Number");
-        jcomp6 = new JTextField (5);
-        jcomp7 = new JTextField (5);
-        jcomp8 = new JTextField (5);
-        jcomp9 = new JTextField (5);
+        jcompEmail = new JTextField (5);
+        jcompID = new JTextField (5);
+        jcompName = new JTextField (5);
+        jcompPhone = new JTextField (5);
         jcomp10 = new JLabel ("Email");
         jcomp11 = new JTextField (5);
         jcomp12 = new JLabel ("Salary");
@@ -65,10 +64,11 @@ public class AddPersonScreen extends JPanel {
         addPerson.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	List<JTextField> list = new ArrayList<JTextField>();
-            	list.add(jcomp6);
-            	list.add(jcomp7);
-            	list.add(jcomp8);
-            	list.add(jcomp9);
+        
+            	list.add(jcompID);
+            	list.add(jcompName);
+            	list.add(jcompPhone);
+            	list.add(jcompEmail);
             	
             	boolean cont = true;
             	for(JTextField tf : list)	{
@@ -87,11 +87,13 @@ public class AddPersonScreen extends JPanel {
 	            		if(!cont)	{}
 	            		else	{
 	            			addEmployeeToDB(list);
+	            			frame.dispose();
 	            		}
 	            	}
 	        
 	            	if (cusBut.isEnabled())	{
 	            		addCustomerToDB(list);
+	            		frame.dispose();
 	            	}
             	}
             }
@@ -107,10 +109,10 @@ public class AddPersonScreen extends JPanel {
         add (jcomp3);
         add (jcomp4);
         add (jcomp5);
-        add (jcomp6);
-        add (jcomp7);
-        add (jcomp8);
-        add (jcomp9);
+        add (jcompEmail);
+        add (jcompID);
+        add (jcompName);
+        add (jcompPhone);
         add (jcomp10);
         add (jcomp11);
         add (jcomp12);
@@ -122,10 +124,10 @@ public class AddPersonScreen extends JPanel {
         jcomp3.setBounds (150, 5, 100, 25);
         jcomp4.setBounds (280, 5, 100, 25);
         jcomp5.setBounds (410, 5, 100, 25);
-        jcomp6.setBounds (565, 30, 130, 25);
-        jcomp7.setBounds (150, 30, 100, 25);
-        jcomp8.setBounds (280, 30, 100, 25);
-        jcomp9.setBounds (410, 30, 120, 25);
+        jcompEmail.setBounds (565, 30, 130, 25);
+        jcompID.setBounds (150, 30, 100, 25);
+        jcompName.setBounds (280, 30, 100, 25);
+        jcompPhone.setBounds (410, 30, 120, 25);
         jcomp10.setBounds (565, 5, 100, 25);
         jcomp11.setBounds (725, 30, 130, 25);
         jcomp12.setBounds (725, 5, 100, 25);
@@ -135,23 +137,30 @@ public class AddPersonScreen extends JPanel {
     private void addEmployeeToDB(List<JTextField> list)	{
     	SQLConnection sqlCon = new SQLConnection();
     	sqlCon.openConnection();
-    	
-    	
+    	ArrayList<String> arrList= new ArrayList<String>();
+    	for(JTextField jtf : list)	{
+    		arrList.add(jtf.getText());
+    	}
+    	sqlCon.insertEmployee(arrList);
     	sqlCon.closeConnection();
     }
     
     private void addCustomerToDB(List<JTextField> list)	{
     	SQLConnection sqlCon = new SQLConnection();
     	sqlCon.openConnection();
-    	
-    	
+    	ArrayList<String> arrList= new ArrayList<String>();
+    	for(JTextField jtf : list)	{
+    		arrList.add(jtf.getText());
+    	}
+    	sqlCon.insertCustomer(arrList);
+    
     	sqlCon.closeConnection();
     }
 
 	public static void main (String[] args) {
-        JFrame frame = new JFrame ("AddPersonScreen");
+        frame = new JFrame ("AddPersonScreen");
         frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add (new AddPersonScreen(null, null));
+        frame.getContentPane().add (new AddPersonScreen());
         frame.pack();
         frame.setVisible (true);
     }

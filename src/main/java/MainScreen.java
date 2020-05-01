@@ -10,6 +10,8 @@ public class MainScreen extends JPanel {
     private JButton jcomp1;
     private JButton jcomp2;
     private JButton jcomp3;
+    
+    private static JFrame frame;
 
     public MainScreen() {
         //construct components
@@ -30,10 +32,21 @@ public class MainScreen extends JPanel {
         jcomp1.setBounds (20, 20, 100, 20);
         jcomp2.setBounds (155, 20, 100, 20);
         jcomp3.setBounds (295, 20, 140, 25);
+        
+        jcomp1.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+            	frame.dispose();
+            	JFrame frame = new JFrame ("PeopleScreen");
+                frame.getContentPane().add (new PeopleScreen());
+                frame.pack();
+                frame.setVisible (true);
+            }
+        });
     }
 
     public static void main (String[] args) {
-        JFrame frame = new JFrame ("MainScreen");
+        frame = new JFrame ("MainScreen");
         frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add (new MainScreen());
         frame.pack();

@@ -33,26 +33,86 @@ public class SQLConnection {
 		}
 	}
 
-	public static Connection getConnection()	{
-		return connection;
-	}
-	
-	public static void selectConsoles(ArrayList<String> list) {
+	public static ArrayList<String> selectConsoles() {
+		ArrayList<String> outp = new ArrayList<String>();
 		try {
 			String query = "SELECT name FROM Consoles";
+			
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			while(rs.next()) {
+				outp.add(rs.getString(1));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return outp;
+	}
+
+	public static ArrayList<String> selectEmployees()	{
+		ArrayList<String> outp = new ArrayList<String>();
+		try {
+			String query = "SELECT * FROM `People` JOIN Employees USING(person_id)";
 
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery(query);
 
-			System.out.println("QUERY: " + query);
-			System.out.println("=== RESULTS === ");
-
+			
 			while(rs.next()) {
-				System.out.println("Name: " + rs.getString(1));
+				outp.add("ID: " + rs.getString("person_id") + ", Name: " + rs.getString("name") + ", Phone: " + rs.getString("phone") + ", Email: " + rs.getString("email") +", Salary: " + rs.getString("salary"));
 			}
 
-			System.out.println("=== /RESULTS === ");
+			
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return outp;
+	}
+	
+	public static ArrayList<String> selectCustomers()	{
+		ArrayList<String> outp = new ArrayList<String>();
+		try {
+			String query = "SELECT * FROM `People` JOIN Customers USING(person_id)";
+
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			
+			while(rs.next()) {
+				outp.add("ID: " + rs.getString("person_id") + ", Name: " + rs.getString("name") + ", Phone: " + rs.getString("phone") + ", Email: " + rs.getString("email"));
+			}
+
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return outp;
+	}
+	
+	public static void insertEmployee(ArrayList<String> inp)	{
+		try {
+			String query1 = "INSERT INTO People (person_id, name, phone, email) VALUES (\"" + inp.get(0) + "\",\"" + inp.get(1) + "\",\"" + inp.get(2) + "\",\"" + inp.get(3)+"\")";
+			String query2 = "INSERT INTO Employees (person_id, salary) VALUES (\"" + inp.get(0) + "\",\""+ inp.get(4)+ "\")";
+			Statement st = connection.createStatement();
+			st.executeUpdate(query1);
+			st.executeUpdate(query2);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void insertCustomer(ArrayList<String> inp)	{
+		try {
+			String query1 = "INSERT INTO People (person_id, name, phone, email) VALUES (\"" + inp.get(0) + "\",\"" + inp.get(1) + "\",\"" + inp.get(2) + "\",\"" + inp.get(3)+"\")";
+			String query2 = "INSERT INTO Customers (person_id) VALUES (\"" + inp.get(0) + "\")";
+			Statement st = connection.createStatement();
+			st.executeUpdate(query1);
+			st.executeUpdate(query2);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

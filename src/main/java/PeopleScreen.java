@@ -1,6 +1,8 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -10,22 +12,14 @@ public class PeopleScreen extends JPanel {
     private JList empList;
     private JList cusList;
     private JButton addPerson;
-    
+    private JButton refresh; 
     private DefaultListModel empLM;
     private DefaultListModel cusLM;
 
 
-    public PeopleScreen(DefaultListModel contEmpLM, DefaultListModel contCusLM) {
-    	if(contEmpLM == null)	{
-    		empLM = new DefaultListModel();
-    	}
-    	else
-    		empLM = contEmpLM;
-    	if(contCusLM == null)	{
-    		this.cusLM = new DefaultListModel();
-    	}
-    	else
-    		cusLM = contCusLM;
+    public PeopleScreen() {
+		empLM = new DefaultListModel();	
+		cusLM = new DefaultListModel();
         //construct components
         
         
@@ -39,11 +33,20 @@ public class PeopleScreen extends JPanel {
 
             public void actionPerformed(ActionEvent e) {
             	JFrame frame = new JFrame ("AddPersonScreen");
-                frame.getContentPane().add (new AddPersonScreen(empLM, cusLM));
+                frame.getContentPane().add (new AddPersonScreen());
                 frame.pack();
                 frame.setVisible (true);
             }
         });
+        
+        refresh = new JButton("Refresh");
+        refresh.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+            	populateListsFromDB();
+            }
+        });
+        
 
         //adjust size and set layout
         setPreferredSize (new Dimension (944, 563));
@@ -63,6 +66,7 @@ public class PeopleScreen extends JPanel {
         add (empScrollPane);
         add (cusScrollPane);
         add (addPerson);
+        add (refresh);
 
         //set component bounds (only needed by Absolute Positioning)
         jcomp1.setBounds (25, 15, 100, 25);
@@ -70,19 +74,33 @@ public class PeopleScreen extends JPanel {
         empScrollPane.setBounds (25, 90, 800, 150);
         cusScrollPane.setBounds (25, 350, 800, 150);
         addPerson.setBounds (100, 15, 200, 25);
+        refresh.setBounds(400, 15, 200, 25);
 
         
     }
-
-//    public void addEmployee(Employee emp)	{
-//    	empLM.addElement(emp);
-//    	revalidate();
-//    }
-
+    
+    private void populateListsFromDB()	{
+    	SQLConnection sqlCon = new SQLConnection();
+    	sqlCon.openConnection();
+    	empLM.clear();
+    	ArrayList<String> empListSQL = sqlCon.selectEmployees();
+    	for(String str : empListSQL)	{
+    		empLM.addElement(str);
+    	}
+    	
+    	cusLM.clear();
+    	ArrayList<String> cusListSQL = sqlCon.selectCustomers();
+    	for(String str : cusListSQL)	{
+    		cusLM.addElement(str);
+    	}
+    	
+    	sqlCon.closeConnection();
+    }
+    
     public static void main (String[] args) {
         JFrame frame = new JFrame ("PeopleScreen");
         frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add (new PeopleScreen(null, null));
+        frame.getContentPane().add (new PeopleScreen());
         frame.pack();
         frame.setVisible (true);
     }
