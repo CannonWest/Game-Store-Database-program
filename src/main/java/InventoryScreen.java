@@ -14,24 +14,24 @@ public class InventoryScreen extends JPanel {
     private JButton addItem;
     private JButton refresh; 
     private JButton back;
-    private DefaultListModel empLM;
-    private DefaultListModel cusLM;
+    private DefaultListModel gameLM;
+    private DefaultListModel otherLM;
 
     private JFrame frame;
 
     public InventoryScreen(JFrame frameM) {
     	frame = frameM;
     	
-		empLM = new DefaultListModel();	
-		cusLM = new DefaultListModel();
+		gameLM = new DefaultListModel();	
+		otherLM = new DefaultListModel();
         //construct components
         
-        jcomp1 = new JLabel ("Employees");
-        jcomp2 = new JLabel ("Customers");
-        gameList = new JList (empLM);
-        otherList = new JList (cusLM);
+        jcomp1 = new JLabel ("Games");
+        jcomp2 = new JLabel ("Other");
+        gameList = new JList (gameLM);
+        otherList = new JList (otherLM);
         
-        addItem = new JButton("Add Person");
+        addItem = new JButton("Add Item");
         addItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	JFrame frame = new JFrame ("addItemScreen");
@@ -93,16 +93,16 @@ public class InventoryScreen extends JPanel {
     private void populateListsFromDB()	{
     	SQLConnection sqlCon = new SQLConnection();
     	sqlCon.openConnection();
-//    	empLM.clear();
+//    	gameLM.clear();
 //    	ArrayList<String> gameListSQL = sqlCon.selectEmployees();
 //    	for(String str : gameListSQL)	{
-//    		empLM.addElement(str);
+//    		gameLM.addElement(str);
 //    	}
 //    	
-//    	cusLM.clear();
+//    	otherLM.clear();
 //    	ArrayList<String> otherListSQL = sqlCon.selectCustomers();
 //    	for(String str : otherListSQL)	{
-//    		cusLM.addElement(str);
+//    		otherLM.addElement(str);
 //    	}
     	
     	sqlCon.closeConnection();

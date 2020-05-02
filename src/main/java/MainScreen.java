@@ -43,6 +43,15 @@ public class MainScreen extends JPanel {
             }
         });
         
+        inventBut.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	frame.dispose();
+            	JFrame frame = new JFrame ("InventoryScreen");
+                frame.getContentPane().add (new InventoryScreen(frame));
+                frame.pack();
+                frame.setVisible (true);
+            }
+        });
         
     }
 

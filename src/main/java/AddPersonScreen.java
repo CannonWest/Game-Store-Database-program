@@ -76,7 +76,7 @@ public class AddPersonScreen extends JPanel {
             	if(!cont)	{}
             	else	{
 	            	
-	            	if (empBut.isEnabled())	{
+	            	if (empBut.isSelected())	{
 	            		list.add(jcomp11);
 	            		for(JTextField tf : list)	{
 	                		if (tf.getText().equals(""))
@@ -89,7 +89,7 @@ public class AddPersonScreen extends JPanel {
 	            		}
 	            	}
 	        
-	            	if (cusBut.isEnabled())	{
+	            	if (cusBut.isSelected())	{
 	            		addCustomerToDB(list);
 	            		frame.dispose();
 	            	}

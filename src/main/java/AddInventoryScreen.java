@@ -125,7 +125,7 @@ public class AddInventoryScreen extends JPanel {
             	if(!cont)	{}
             	else	{
 	            	
-	            	if (gameBut.isEnabled())	{
+	            	if (gameBut.isSelected())	{
 	            		list.add(jcompAgeRating);
 	            		list.add(jcompPublisher);
 	            		list.add(jcompGenre);
@@ -135,17 +135,17 @@ public class AddInventoryScreen extends JPanel {
 	                	}
 	            		if(!cont)	{}
 	            		else	{
-	            			if(videoBut.isEnabled())	{
+	            			if(videoBut.isSelected())	{
 	            				list.add(jcompConsole);
-	            				addGameToDB(list,videoBut.isEnabled());
+	            				addGameToDB(list,true);
 	            			}
 	            			else
-	            				addGameToDB(list,videoBut.isEnabled());
+	            				addGameToDB(list,false);
 	            			frame.dispose();
 	            		}
 	            	}
 	        
-	            	if (otherBut.isEnabled())	{
+	            	if (otherBut.isSelected())	{
 	            		addOtherToDB(list);
 	            		frame.dispose();
 	            	}
@@ -204,14 +204,22 @@ public class AddInventoryScreen extends JPanel {
     private void addGameToDB(List<JTextField> list, boolean video)	{
     	SQLConnection sqlCon = new SQLConnection();
     	sqlCon.openConnection();
-
+    	ArrayList<String> arrList= new ArrayList<String>();
+    	for(JTextField jtf : list)	{
+    		arrList.add(jtf.getText());
+    	}
+    	sqlCon.insertGame(arrList, video);
     	sqlCon.closeConnection();
     }
     
     private void addOtherToDB(List<JTextField> list)	{
     	SQLConnection sqlCon = new SQLConnection();
     	sqlCon.openConnection();
-
+    	ArrayList<String> arrList= new ArrayList<String>();
+    	for(JTextField jtf : list)	{
+    		arrList.add(jtf.getText());
+    	}
+    	sqlCon.insertOther(arrList);
     	sqlCon.closeConnection();
     }
 
