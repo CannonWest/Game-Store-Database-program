@@ -53,7 +53,7 @@ public class PeopleScreen extends JPanel {
             public void actionPerformed(ActionEvent e) {
             	frame.dispose();
             	JFrame frame = new JFrame ("MainScreen");
-                frame.getContentPane().add (new MainScreen());
+                frame.getContentPane().add (new MainScreen(frame));
                 frame.pack();
                 frame.setVisible (true);
             }

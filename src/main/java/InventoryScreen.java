@@ -53,7 +53,7 @@ public class InventoryScreen extends JPanel {
             public void actionPerformed(ActionEvent e) {
             	frame.dispose();
             	JFrame frame = new JFrame ("MainScreen");
-                frame.getContentPane().add (new MainScreen());
+                frame.getContentPane().add (new MainScreen(frame));
                 frame.pack();
                 frame.setVisible (true);
             }
@@ -93,17 +93,17 @@ public class InventoryScreen extends JPanel {
     private void populateListsFromDB()	{
     	SQLConnection sqlCon = new SQLConnection();
     	sqlCon.openConnection();
-//    	gameLM.clear();
-//    	ArrayList<String> gameListSQL = sqlCon.selectEmployees();
-//    	for(String str : gameListSQL)	{
-//    		gameLM.addElement(str);
-//    	}
-//    	
-//    	otherLM.clear();
-//    	ArrayList<String> otherListSQL = sqlCon.selectCustomers();
-//    	for(String str : otherListSQL)	{
-//    		otherLM.addElement(str);
-//    	}
+    	gameLM.clear();
+    	ArrayList<String> gameListSQL = sqlCon.selectGames();
+    	for(String str : gameListSQL)	{
+    		gameLM.addElement(str);
+    	}
+    	
+    	otherLM.clear();
+    	ArrayList<String> otherListSQL = sqlCon.selectOther();
+    	for(String str : otherListSQL)	{
+    		otherLM.addElement(str);
+    	}
     	
     	sqlCon.closeConnection();
     }

@@ -50,27 +50,6 @@ public class SQLConnection {
 		}
 		return outp;
 	}
-//	public static ArrayList<String> selectGames()	{
-//		ArrayList<String> outp = new ArrayList<String>();
-//		try {
-//			String query = "SELECT * FROM `Games` JOIN VideoGames USING(inventory_id)";
-//
-//			Statement st = connection.createStatement();
-//			ResultSet rs = st.executeQuery(query);
-//
-//			outp.add("Video Games:");
-//			while(rs.next()) {
-//				outp.add("ID: " + rs.getString("person_id") + ", Name: " + rs.getString("name") + ", Phone: " + rs.getString("phone") + ", Email: " + rs.getString("email") +", Salary: " + rs.getString("salary"));
-//			}
-//
-//			
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return outp;
-//	}
 	public static ArrayList<String> selectEmployees()	{
 		ArrayList<String> outp = new ArrayList<String>();
 		try {
@@ -104,13 +83,51 @@ public class SQLConnection {
 			while(rs.next()) {
 				outp.add("ID: " + rs.getString("person_id") + ", Name: " + rs.getString("name") + ", Phone: " + rs.getString("phone") + ", Email: " + rs.getString("email"));
 			}
-
-			
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return outp;
+	}
+	public static ArrayList<String> selectGames()	{
+		ArrayList<String> outp = new ArrayList<String>();
+		try {
+			String query1 = "SELECT * FROM `Games` JOIN VideoGames USING(inventory_id) JOIN Products USING(inventory_id)";
+			String query2 = "SELECT * FROM `Games` JOIN BoardGames USING(inventory_id) JOIN Products USING(inventory_id)";
+
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery(query1);
+			
+			outp.add("VIDEO GAMES");
+			while(rs.next()) {
+				outp.add("ID: " + rs.getString("inventory_id") + ", Name: " + rs.getString("name") + ", Age Rating: " + rs.getString("age_rating") + ", Console: " + rs.getString("console")+", Publisher: " + rs.getString("publisher") + ", Price: " + rs.getString("price"));
+			}
+			
+			rs = st.executeQuery(query2);
+			outp.add("BOARD GAMES");
+			while(rs.next()) {
+				outp.add("ID: " + rs.getString("inventory_id") + ", Name: " + rs.getString("name") + ", Age Rating: " + rs.getString("age_rating") + ", Publisher: " + rs.getString("publisher") + ", Price: " + rs.getString("price"));
+			}
 		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return outp;
+	}
+	public static ArrayList<String> selectOther()	{
+		ArrayList<String> outp = new ArrayList<String>();
+		try {
+			String query = "SELECT * FROM `OtherItems` JOIN Products USING(inventory_id)";
+
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			
+			while(rs.next()) {
+				outp.add("ID: " + rs.getString("inventory_id") + ", Name: " + rs.getString("name") + ", Price: " + rs.getString("price"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return outp;
 	}
 	public static void insertEmployee(ArrayList<String> inp)	{
@@ -120,6 +137,15 @@ public class SQLConnection {
 			Statement st = connection.createStatement();
 			st.executeUpdate(query1);
 			st.executeUpdate(query2);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void insertTransaction(ArrayList<String> inp)	{
+		try {
+			String query1 = "INSERT INTO Transactions (transaction_id, total_price, person_id) VALUES (\"" + inp.get(0) + "\",\"" + inp.get(1) + "\",\"" + inp.get(2) + "\")";
+			Statement st = connection.createStatement();
+			st.executeUpdate(query1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

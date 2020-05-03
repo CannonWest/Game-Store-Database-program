@@ -13,8 +13,9 @@ public class MainScreen extends JPanel {
     
     private static JFrame frame;
 
-    public MainScreen() {
-        //construct components
+    public MainScreen(JFrame frameM) {
+        frame = frameM;
+    	//construct components
         peopleBut = new JButton ("People");
         inventBut = new JButton ("Inventory");
         transBut = new JButton ("Transactions");
@@ -31,7 +32,7 @@ public class MainScreen extends JPanel {
         //set component bounds (only needed by Absolute Positioning)
         peopleBut.setBounds (20, 20, 100, 20);
         inventBut.setBounds (155, 20, 100, 20);
-        transBut.setBounds (295, 20, 140, 25);
+        transBut.setBounds (290, 20, 120, 20);
         
         peopleBut.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -53,12 +54,21 @@ public class MainScreen extends JPanel {
             }
         });
         
+        transBut.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	frame.dispose();
+            	JFrame frame = new JFrame ("TransactionScreen");
+                frame.getContentPane().add (new TransactionScreen(frame));
+                frame.pack();
+                frame.setVisible (true);
+            }
+        });
     }
 
     public static void main (String[] args) {
         frame = new JFrame ("MainScreen");
         frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add (new MainScreen());
+        frame.getContentPane().add (new MainScreen(frame));
         frame.pack();
         frame.setVisible (true);
     }
