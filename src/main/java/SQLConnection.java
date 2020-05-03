@@ -217,13 +217,13 @@ public class SQLConnection {
 			e.printStackTrace();
 		}
 	}
-//	public static void deleteEmployee(String id)	{
-//		try {
-//			String query1 = "INSERT INTO People (person_id, name, phone, email) VALUES (\"" + inp.get(0) + "\",\"" + inp.get(1) + "\",\"" + inp.get(2) + "\",\"" + inp.get(3)+"\")";
-//			Statement st = connection.createStatement();
-//			st.executeUpdate(query1);
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	public static void deleteEmployee(String id)	{
+		try {
+			String query1 = "DELETE FROM `People` WHERE person_id = "+ id;
+			Statement st = connection.createStatement();
+			st.executeUpdate(query1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

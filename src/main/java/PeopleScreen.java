@@ -74,11 +74,12 @@ public class PeopleScreen extends JPanel {
             				comm = true;
             			else
             				idStr = idStr + newC;
+            			ind++;
             		}
             		
             		SQLConnection sqlCon = new SQLConnection();
                 	sqlCon.openConnection();
-                	
+                	sqlCon.deleteEmployee(idStr);
                 	
                 	sqlCon.closeConnection();
             	}
@@ -105,6 +106,7 @@ public class PeopleScreen extends JPanel {
         add (addPerson);
         add (refresh);
         add (back);
+        add (delete);
 
         //set component bounds (only needed by Absolute Positioning)
         jcomp1.setBounds (25, 15, 100, 25);
@@ -114,6 +116,7 @@ public class PeopleScreen extends JPanel {
         addPerson.setBounds (100, 15, 200, 25);
         refresh.setBounds(400, 15, 200, 25);
         back.setBounds(700,15,200,25);
+        delete.setBounds(850,125,80,25);
     }
     
     private void populateListsFromDB()	{
