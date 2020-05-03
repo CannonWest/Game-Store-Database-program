@@ -28,8 +28,8 @@ public class TransactionScreen extends JPanel {
         addPerson = new JButton("Add Transaction");
         addPerson.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	JFrame frame = new JFrame ("AddPersonScreen");
-                frame.getContentPane().add (new AddPersonScreen(frame));
+            	JFrame frame = new JFrame ("AddTransactionScreen");
+                frame.getContentPane().add (new AddTransactionScreen(frame));
                 frame.pack();
                 frame.setVisible (true);
             }
@@ -81,7 +81,7 @@ public class TransactionScreen extends JPanel {
     	SQLConnection sqlCon = new SQLConnection();
     	sqlCon.openConnection();
     	transLM.clear();
-    	ArrayList<String> transListSQL = sqlCon.selectEmployees();
+    	ArrayList<String> transListSQL = sqlCon.selectTransactions();
     	for(String str : transListSQL)	{
     		transLM.addElement(str);
     	}

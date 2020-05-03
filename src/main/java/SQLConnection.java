@@ -130,6 +130,23 @@ public class SQLConnection {
 		}
 		return outp;
 	}
+	public static ArrayList<String> selectTransactions()	{
+		ArrayList<String> outp = new ArrayList<String>();
+		try {
+			String query = "SELECT * FROM `Transactions`";
+
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			
+			while(rs.next()) {
+				outp.add("ID: " + rs.getString("transaction_id") + ", Person: " + rs.getString("person_id") + ", Price: " + rs.getString("total_price"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return outp;
+	}
 	public static void insertEmployee(ArrayList<String> inp)	{
 		try {
 			String query1 = "INSERT INTO People (person_id, name, phone, email) VALUES (\"" + inp.get(0) + "\",\"" + inp.get(1) + "\",\"" + inp.get(2) + "\",\"" + inp.get(3)+"\")";
@@ -200,4 +217,13 @@ public class SQLConnection {
 			e.printStackTrace();
 		}
 	}
+//	public static void deleteEmployee(String id)	{
+//		try {
+//			String query1 = "INSERT INTO People (person_id, name, phone, email) VALUES (\"" + inp.get(0) + "\",\"" + inp.get(1) + "\",\"" + inp.get(2) + "\",\"" + inp.get(3)+"\")";
+//			Statement st = connection.createStatement();
+//			st.executeUpdate(query1);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
 }

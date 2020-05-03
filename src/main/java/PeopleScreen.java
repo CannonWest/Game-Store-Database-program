@@ -14,6 +14,7 @@ public class PeopleScreen extends JPanel {
     private JButton addPerson;
     private JButton refresh; 
     private JButton back;
+    private JButton delete;
     private DefaultListModel empLM;
     private DefaultListModel cusLM;
 
@@ -56,6 +57,31 @@ public class PeopleScreen extends JPanel {
                 frame.getContentPane().add (new MainScreen(frame));
                 frame.pack();
                 frame.setVisible (true);
+            }
+        });
+        
+        delete = new JButton("Delete");
+        delete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	if (empList.getSelectedValue() != null)	{
+            		String str = (String) empList.getSelectedValue();
+            		boolean comm = false;
+            		int ind = 4;
+            		String idStr = "";
+            		while(!comm)	{
+            			char newC = str.charAt(ind);
+            			if(newC == ',')
+            				comm = true;
+            			else
+            				idStr = idStr + newC;
+            		}
+            		
+            		SQLConnection sqlCon = new SQLConnection();
+                	sqlCon.openConnection();
+                	
+                	
+                	sqlCon.closeConnection();
+            	}
             }
         });
 

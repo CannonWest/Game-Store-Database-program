@@ -22,9 +22,9 @@ public class AddTransactionScreen extends JPanel {
     public AddTransactionScreen(JFrame frameM) {
         this.frame = frameM;
     	//construct components
-        jcomp3 = new JLabel ("ID");
+        jcomp3 = new JLabel ("Transaction ID");
         jcomp4 = new JLabel ("Price");
-        jcomp5 = new JLabel ("Number");
+        jcomp5 = new JLabel ("Customer ID");
         jcompID = new JTextField (5);
         jcompPrice = new JTextField (5);
         jcompCustomer = new JTextField (5);
@@ -81,7 +81,7 @@ public class AddTransactionScreen extends JPanel {
     	for(JTextField jtf : list)	{
     		arrList.add(jtf.getText());
     	}
-    	sqlCon.insertEmployee(arrList);
+    	sqlCon.insertTransaction(arrList);
     	
     	sqlCon.closeConnection();
     }
